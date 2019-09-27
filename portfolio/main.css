@@ -32,6 +32,12 @@ body {
   background-image: radial-gradient(#4FD0FF, #009CD4);
 }
 
+p {
+  color: #FFFF00;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 200;
+}
+
 .navmainlinks {
   margin-top: -50px;
   text-align: center;
@@ -40,6 +46,8 @@ body {
 .contact {
   margin-top: -17px;
   text-align: right;
+  position: relative;
+  right: 10px;
 }
 
 .aboutme {
