@@ -1,0 +1,67 @@
+#navbar {
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 100px;
+}
+
+#logo {
+  align: left;
+  width: 200px;
+  height: 100px;
+}
+
+#pinkluke {
+  width: 172.5px;
+  height: 537px;
+}
+
+a {
+  padding: 20px;
+  color: #FFFF00;
+  text-decoration: none;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 900;
+}
+
+a:hover {
+
+}
+
+body {
+  background-image: radial-gradient(#4FD0FF, #009CD4);
+}
+
+.navmainlinks {
+  margin-top: -50px;
+  text-align: center;
+}
+
+.contact {
+  margin-top: -17px;
+  text-align: right;
+}
+
+.aboutme {
+  width: 500px;
+  height: 600px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.aboutmetext {
+  width: 250px;
+  height: 600px;
+  color: #FFFF00;
+}
+
+.aboutmebold {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 900;
+}
+
+.aboutmep {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 400;
+}
