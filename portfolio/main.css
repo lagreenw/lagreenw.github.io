@@ -17,7 +17,8 @@
 }
 
 a {
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   color: #FFFF00;
   text-decoration: none;
   font-family: 'Nunito Sans', sans-serif;
@@ -30,12 +31,7 @@ a:hover {
 
 body {
   background-image: radial-gradient(#4FD0FF, #009CD4);
-}
-
-p {
-  color: #FFFF00;
-  font-family: 'Nunito Sans', sans-serif;
-  font-weight: 200;
+  overflow-x: hidden;
 }
 
 .navmainlinks {
@@ -44,10 +40,10 @@ p {
 }
 
 .contact {
-  margin-top: -17px;
   text-align: right;
   position: relative;
-  right: 10px;
+  bottom: 22px;
+  padding-right: 35px;
 }
 
 .aboutme {
@@ -72,4 +68,15 @@ p {
 .aboutmep {
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 400;
+}
+
+.copywrite {
+  text-align: left;
+  position: relative;
+  left: 65px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #FFFF00;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 200;
 }
