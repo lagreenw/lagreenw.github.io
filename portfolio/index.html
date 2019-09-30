@@ -2,13 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <title>index</title>
-    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,400,400i,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
   </head>
-  <body onload="myFunction()">
-    <video src="animation.mp4" autoplay id="loader">
-    <div id="myDiv" class="animate-bottom">
+  <body>
     <nav id="navbar">
       <div>
         <a href="index.html"><img src="signatureyellow.png" class="logo"></a>
@@ -51,18 +49,5 @@
     <footer>
       <p class="copywrite">All rights reserved. Copywrite Luke Greenwood 2019.</p>
     </footer>
-  </div>
-
-    <script>
-    var myVar;
-    function myFunction() {
-      myVar = setTimeout(showPage, 2000);
-    }
-    function showPage() {
-      document.getElementById("loader").style.display = "none";
-      document.getElementById("myDiv").style.display = "block";
-    }
-    </script>
-
   </body>
 </html>
