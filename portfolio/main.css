@@ -1,14 +1,21 @@
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 25%;
+  height: auto;
+  background-image: radial-gradient(#4FD0FF, #009CD4);
+}
+
+#myDiv {
+  display: none;
+}
+
 #navbar {
   padding-left: 20px;
   padding-top: 20px;
   padding-right: 20px;
   padding-bottom: 120px;
-}
-
-.logo {
-  align: left;
-  width: 200px;
-  height: 100px;
 }
 
 #pinkluke {
@@ -57,6 +64,12 @@ a:hover {
 h1 {
   margin-top: -10px;
   margin-bottom: -10px;
+}
+
+.logo {
+  align: left;
+  width: 200px;
+  height: 100px;
 }
 
 .navmainlinks {
@@ -156,4 +169,23 @@ h1 {
   color: #FFFF00;
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 200;
+}
+
+
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { opacity:0 }
+  to { opacity:1 }
+}
+
+@keyframes animatebottom {
+  from{ opacity:0 }
+  to{ opacity:1 }
 }
