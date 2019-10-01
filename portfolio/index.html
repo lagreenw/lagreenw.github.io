@@ -2,11 +2,13 @@
 <html lang="en" dir="ltr">
   <head>
     <title>index</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" name="viewport">
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,400,400i,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
   </head>
-  <body>
+  <body onload="myFunction()" style="margin:0;">
+    <div id="loader"><video src="animation.mp4" playsinline autoplay muted class="loadanimation"></div>
+    <div id="myDiv" class="animate-bottom">
     <nav id="navbar">
       <div>
         <a href="index.html"><img src="signatureyellow.png" class="logo"></a>
@@ -28,8 +30,22 @@
               <a href="#">Link 6</a>
             </div>
         </div>
+        <div class="dropdown">
           <a class="dropbtn">3D</a>
+            <div class="dropdown-content">
+              <a href="#">Link 7</a>
+              <a href="#">Link 8</a>
+              <a href="#">Link 9</a>
+            </div>
+        </div>
+        <div class="dropdown">
           <a class="dropbtn">AUDIO</a>
+            <div class="dropdown-content">
+              <a href="#">Link 10</a>
+              <a href="#">Link 11</a>
+              <a href="#">Link 12</a>
+            </div>
+        </div>
       </div>
       <div class="contact">
         <a href="#">CONTACT</a>
@@ -49,5 +65,18 @@
     <footer>
       <p class="copywrite">All rights reserved. Copywrite Luke Greenwood 2019.</p>
     </footer>
+  </div>
+
+    <script>
+    var myVar;
+    function myFunction() {
+      myVar = setTimeout(showPage, 2000);
+    }
+    function showPage() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("myDiv").style.display = "block";
+    }
+    </script>
+
   </body>
 </html>
