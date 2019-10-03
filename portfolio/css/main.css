@@ -105,7 +105,8 @@ h1 {
 /* Links inside the dropdown */
 .dropdown-content a {
   color: black;
-  padding: 12px 16px;
+  padding-top: 6px;
+  padding-bottom: 20px;
   text-decoration: none;
   text-align: left;
   display: block;
@@ -124,9 +125,9 @@ h1 {
 
 .icons {
   position: relative;
-  top: 7px;
-  width: 25px;
-  height: 25px;
+  top: 10px;
+  width: 35px;
+  height: 35px;
 }
 
 .contact {
