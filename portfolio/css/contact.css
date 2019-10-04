@@ -1,0 +1,205 @@
+/* #loader {
+
+}
+
+.loadanimation {
+  position: absolute;
+  height: 100%;
+  width: auto;
+} */
+
+#myDiv {
+  display: none;
+}
+
+#navbar {
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-bottom: 120px;
+}
+
+#youtube {
+  position: relative;
+  left: -200px;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  background-image: radial-gradient(#21C7FF, #1888AE);
+  overflow-x: hidden;
+}
+
+a {
+  padding-left: 20px;
+  padding-right: 20px;
+  /* color: #FFFF00; */
+  /* color: #FFFA21; */       /* video yellow */
+  /* color: #EB1B3A; */       /* red */
+  color: white;
+  text-decoration: none;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 900;
+
+  -o-transition-property: all;
+  -o-transition-duration: .5s;
+  -o-transition-timing-function: ease-in-out;
+
+  -moz-transition-property: all;
+  -moz-transition-duration: .5s;
+  -moz-transition-timing-function: ease-in-out;
+
+  -webkit-transition-property: all;
+  -webkit-transition-duration: .5s;
+  -webkit-transition-timing-function: ease-in-out;
+
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: ease-in-out;
+}
+
+a:hover {
+  color: #ffffff;
+}
+
+h1 {
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
+.logo {
+  align: left;
+  width: 200px;
+  height: 100px;
+}
+
+.navmainlinks {
+  margin-top: -50px;
+  text-align: center;
+  display: block;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Button */
+.dropbtn {
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 38px;
+  background-color: #f1f1f1;
+  white-space: nowrap;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  text-align: left;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: rgba(0,0,0,0.2);
+}
+
+.icons {
+  position: relative;
+  top: 7px;
+  width: 25px;
+  height: 25px;
+}
+
+.contact {
+  float: right;
+  position: relative;
+  bottom: 22px;
+  right: 35px;
+}
+
+.pagecontent {
+  width: 500px;
+  height: 600px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.text {
+  position: relative;
+  left: 50px;
+  width: 250px;
+  height: 600px;
+  color: white;
+}
+
+.textbold {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 900;
+  font-size: 23px;
+}
+
+.textp {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 400;
+  word-wrap: break-word;
+}
+
+.copywrite {
+  text-align: left;
+  position: relative;
+  left: 65px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: white;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 200;
+}
+
+.photo {
+  position: relative;
+  left: -100px;
+  width: 384px;
+  height: 216px;
+}
+
+
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { opacity:0 }
+  to { opacity:1 }
+}
+
+@keyframes animatebottom {
+  from{ opacity:0 }
+  to{ opacity:1 }
+}
