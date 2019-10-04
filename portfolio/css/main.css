@@ -1,11 +1,16 @@
 #loader {
-
+  width: 100vw;
+  height: 100vh;
+  background-color: #59d7ff;
 }
 
 .loadanimation {
   position: absolute;
-  height: 100%;
-  width: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  height: auto;
+  width: 100%;
+  align-content: center;
 }
 
 #myDiv {
