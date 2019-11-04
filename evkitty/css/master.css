@@ -24,13 +24,25 @@ body {
   z-index: 1;
 }
 
-.logoLoopAnimation {
+.logoplaceholder {
+  width: 840px;
+  height: 384px;
+  position: absolute;
+  image-rendering: crisp-edges;
+  margin: 0px;
+  top: 90px;
+  left: 80px;
+  z-index: 4;
+}
+
+#logoanimation {
   width: 840px;
   height: 384px;
   position: absolute;
   margin: 0px;
   top: 90px;
   left: 80px;
+  z-index: 5;
 }
 
 .start {
