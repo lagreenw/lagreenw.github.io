@@ -1,8 +1,10 @@
 console.log("hello world!");
 var happyCounter = 50;
-var chonkCounter = 30;
+var chonkCounter = 50;
 const textElement = document.getElementById('gametext');
 const optionButttonsElement = document.getElementById('optionsContainer');
+const bodyImage = document.getElementById('kittybody');
+const headImage = document.getElementById('kittyhead');
 
 
 function startGame () {
@@ -37,6 +39,40 @@ function selectOption (option) {
   pb2.setValue(happyCounter)
   chonkCounter += option.chonk
   pb1.setValue(chonkCounter)
+    // chonkiness min/max
+  if (chonkCounter < 0) {
+      chonkCounter = 0;
+    }
+  if (chonkCounter > 100) {
+      chonkCounter = 100;
+  }
+  // chonkiness image change
+  if (chonkCounter <= 40) {
+    bodyImage.src = 'image/skinnybody.png';
+  }
+  else if (chonkCounter > 40 && chonkCounter <= 80) {
+    bodyImage.src = 'image/mediumbody.png';
+  }
+  else {
+    bodyImage.src = 'image/chonkybody.png';
+  }
+  // happiness min/max
+  if (happyCounter < 0) {
+      happyCounter = 0;
+    }
+  if (happyCounter > 100) {
+      happyCounter = 100;
+  }
+  // happiness image change
+  if (happyCounter <= 20) {
+    headImage.src = 'image/frownface.png';
+  }
+  else if (happyCounter > 20 && chonkCounter <= 40) {
+    headImage.src = 'image/neutralface.png';
+  }
+  else {
+    headImage.src = 'image/smileface.png';
+  }
 }
 
 const textNodes = [
@@ -47,8 +83,8 @@ const textNodes = [
       {
         text: '< Aquire food >',
         nextText: 2,
-        happy:20,
-        chonk: 0
+        happy: 60,
+        chonk: 60
       },
       {
         text: '< Aquire cuddles >',
@@ -59,8 +95,8 @@ const textNodes = [
       {
         text: '< Sleep >',
         nextText: 4,
-        happy: 0,
-        chonk: 0
+        happy: 20,
+        chonk: 20
       }
     ]
   },
@@ -71,7 +107,8 @@ const textNodes = [
       {
         text: '< Aquire cuddles >',
         nextText: 1,
-        happy:-10
+        happy: -10,
+        chonk: -10
       }
     ]
   }
@@ -87,6 +124,7 @@ class ProgressBar1 {
   constructor (element, initialValue = 0) {
     this.valueElem = element.querySelector(".progress-bar-value1");
     this.fillElem = element.querySelector(".progress-bar-fill1");
+    // this.bodyImage = element.querySelector("#kittybody");
 
     this.setValue(initialValue);
   }
@@ -101,15 +139,26 @@ class ProgressBar1 {
 
     this.value = newValue;
     this.update();
+    // this.changeBody();
   }
 
   update () {
     const percentage = this.value + "%";
-
     this.fillElem.style.width = percentage;
     this.valueElem.textContent = "Chonk-iness: " + percentage;
   }
 
+  // changeBody (newValue) {
+  //   if (newValue <= 40) {
+  //     this.bodyImage.src = "image/skinnybody.png";
+  //   }
+  //   else if (newValue > 40 && newValue <= 80) {
+  //     this.bodyImage.src = "image/mediumbody.png";
+  //   }
+  //   else {
+  //     this.bodyImage.src = "image/chonkybody.png";
+  //   }
+  // }
 }
 
 const pb1 = new ProgressBar1(document.querySelector(".progress-bar1"), 0);
