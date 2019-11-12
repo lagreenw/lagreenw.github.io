@@ -100,27 +100,72 @@ body {
 
 
 
-
-.progress-bar {
-  position: relative;
-  width: 300px;
-  height: 40px;
-  border: 1px solid black;
+/* chonk level */
+.progress-bar1 {
+  position: absolute;
+  width: 400px;
+  height: 95px;
+  border: 0px;
+  left: 535px;
+  top: 583px;
+  z-index: -1;
+  background-color: white;
 }
 
-.progress-bar-fill {
+.progress-bar-fill1 {
+  position: absolute;
   height: 100%;
   background: green;
   transition: width 1s;
   -webkit-transition: width 1s;
   -moz-transition: width 1s;
+  z-index: 1;
 }
 
-.progress-bar-value {
+.progress-bar-value1 {
   position: absolute;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: "Press Start 2P";
+  font-size: 20px;
+  z-index: 2;
+  color: black;
+}
+
+/* life satisfaction meter */
+.progress-bar2 {
+  position: absolute;
+  width: 400px;
+  height: 95px;
+  border: 0px;
+  left: 535px;
+  top: 465px;
+  z-index: -1;
+  background-color: white;
+}
+
+.progress-bar-fill2 {
+  position: absolute;
+  height: 100%;
+  background: green;
+  transition: width 1s;
+  -webkit-transition: width 1s;
+  -moz-transition: width 1s;
+  z-index: 1;
+}
+
+.progress-bar-value2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Press Start 2P";
+  font-size: 20px;
+  z-index: 2;
+  color: black;
 }
