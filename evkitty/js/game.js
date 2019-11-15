@@ -1,6 +1,6 @@
 console.log("hello world!");
-var happyCounter = 50;
-var chonkCounter = 30;
+var happyCounter = 40;
+var chonkCounter = 20;
 // var students = "students";
 const textElement = document.getElementById('gametext');
 const optionButttonsElement = document.getElementById('optionsContainer');
@@ -69,7 +69,7 @@ function selectOption (option) {
   if (happyCounter <= 20) {
     headImage.src = 'image/frownface.png';
   }
-  else if (happyCounter > 20 && happyCounter <= 40) {
+  else if (happyCounter > 20 && happyCounter < 40) {
     headImage.src = 'image/neutralface.png';
   }
   else {
@@ -103,7 +103,7 @@ const textNodes = [
       {
         text: '< Aquire cuddles >',
         nextText: 3,
-        happy: 10,
+        happy: 5,
         chonk: 0,
       },
       {
@@ -121,14 +121,14 @@ const textNodes = [
       {
         text: '< Eat the eggs >',
         nextText: 7,
-        happy: 10,
-        chonk: 10
+        happy: 5,
+        chonk: 5
       },
       {
         text: '< Eat the cereal >',
         nextText: 8,
         happy: -15,
-        chonk: 30
+        chonk: 15
       }
     ]
   },
@@ -151,14 +151,14 @@ const textNodes = [
       {
         text: '< Not now, pesky humans. >',
         nextText: 6,
-        happy: 0,
+        happy: -10,
         chonk: 0
       },
       {
         text: '< See what they offer you >',
-        nextText: 1,
-        happy: 0,
-        chonk: 0
+        nextText: 51,
+        happy: -15,
+        chonk: 5
       }
     ]
   },
@@ -175,7 +175,7 @@ const textNodes = [
       {
         text: '< Aquire cuddles >',
         nextText: 3,
-        happy: 10,
+        happy: 5,
         chonk: 0,
       },
       {
@@ -235,7 +235,7 @@ const textNodes = [
       {
         text: '< Go through EVK >',
         nextText: 10,
-        happy: 50,
+        happy: 20,
         chonk: 0
       },
       {
@@ -277,7 +277,7 @@ const textNodes = [
       {
         text: "< Suppress gluttonous urges >",
         nextText: 13,
-        happy: 30,
+        happy: 20,
         chonk: 0
       }
     ]
@@ -380,7 +380,7 @@ const textNodes = [
         text: '< Sweet! >',
         nextText: 19,
         happy: 30,
-        chonk: 30
+        chonk: 20
       },
     ]
   },
@@ -433,7 +433,7 @@ const textNodes = [
       {
         text: '< Continue thriving >',
         nextText: 23,
-        happy: 70,
+        happy: 20,
         chonk: 0
       },
     ]
@@ -445,7 +445,7 @@ const textNodes = [
       {
         text: ' ',
         nextText: 0,
-        happy: 0,
+        happy: 100,
         chonk: 0
       },
     ]
@@ -457,7 +457,7 @@ const textNodes = [
       {
         text: '< Perfect! >',
         nextText: 14,
-        happy: 10,
+        happy: 5,
         chonk: 0
       },
     ]
@@ -475,7 +475,7 @@ const textNodes = [
       {
         text: '< Leave >',
         nextText: 37,
-        happy: -20,
+        happy: -15,
         chonk: 0
       }
     ]
@@ -505,7 +505,7 @@ const textNodes = [
       {
         text: '< Wait, what? >',
         nextText: 28,
-        happy: 0,
+        happy: 10,
         chonk: 0
       },
     ]
@@ -709,8 +709,8 @@ const textNodes = [
       {
         text: '< Go to the dining hall >',
         nextText: 40,
-        happy: 0,
-        chonk: 0
+        happy: -20,
+        chonk: 30
       }
     ]
   },
@@ -721,13 +721,13 @@ const textNodes = [
       {
         text: '< Feel remorse >',
         nextText: 43,
-        happy: -20,
+        happy: -10,
         chonk: 0
       },
       {
         text: '< Nice! >',
         nextText: 46,
-        happy: 20,
+        happy: 10,
         chonk: 0
       }
     ]
@@ -746,7 +746,7 @@ const textNodes = [
         text: '< Become a street cat >',
         nextText: 44,
         happy: 20,
-        chonk: -20
+        chonk: -30
       }
     ]
   },
@@ -788,7 +788,7 @@ const textNodes = [
         text: '< Become a street cat >',
         nextText: 44,
         happy: 20,
-        chonk: -20
+        chonk: -30
       }
     ]
   },
@@ -853,6 +853,18 @@ const textNodes = [
       {
         text: ' ',
         nextText: 0,
+        happy: 0,
+        chonk: 0
+      },
+    ]
+  },
+  {
+    id: 51,
+    text: 'They each give you a small piece of cantaloupe, but you are still grumpy that they woke you up.',
+    options:[
+      {
+        text: '< *sigh* >',
+        nextText: 6,
         happy: 0,
         chonk: 0
       },
@@ -960,9 +972,9 @@ $(document).ready(function(){
 
     $("#mute-toggle").click(function(){ // on toggle click
         if($(this).hasClass("toggled")){ // if toggle has class "toggled"
-            audio.muted = true; // unmute audio
+            audio.muted = !audio.muted; // unmute audio
         } else { // vice versa
-            audio.muted = false;
+            audio.muted = !audio.muted;
             audio.currentTime = 0;
         }
 
