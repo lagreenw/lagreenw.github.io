@@ -590,7 +590,7 @@ const textNodes = [
   },
   {
     id: 33,
-    text: '"Yes!" Shouts George. "you\'re gonna be a star, cat! You just wait and see..." However, despite high hopes the movie business is tough on you. Three years, two "Paw Wars" films, and one nasty cocaine addiction later, you are worn out. You spend hours a day, just wandering your Beverly Hills mansion looking for something to keep you busy.',
+    text: '"Yes!" Shouts George. "you\'re gonna be a star, cat! You just wait and see..." However, despite high hopes the movie business is tough on you. Three years, two "Paw Wars" films, and one nasty cat nip addiction later, you are worn out. You spend hours a day, just wandering your Beverly Hills mansion looking for something to keep you busy.',
     options:[
       {
         text: '< continue >',
