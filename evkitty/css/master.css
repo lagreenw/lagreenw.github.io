@@ -155,10 +155,10 @@ body {
 }
 
 .byluke {
-  position: relative;
+  position: absolute;
   text-align: left;
-  top: 800px;
-  left: 242px;
+  top: 730px;
+  left: 85px;
   font-family: "Press Start 2P";
   font-size: 15px;
   color: #58f479;
@@ -166,8 +166,8 @@ body {
 }
 
 .bylukelink {
-  top: 800px;
-  left: 242px;
+  top: 730px;
+  left: 85px;
   font-family: "Press Start 2P";
   font-size: 15px;
   color: #58f479;
