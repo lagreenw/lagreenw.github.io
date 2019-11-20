@@ -1,0 +1,68 @@
+body {
+  background-color: #289E49;
+  padding-left: 65px;
+  padding-right: 65px;
+  display: inline-block;
+}
+
+h1 {
+  margin-left: 65px;
+  margin-right: 65px;
+  margin-top: 65px;
+  font-family: "Press Start 2P";
+  font-size: 40px;
+  line-height: 1.5rem;
+  color: white;
+  text-rendering: geometricPrecision;
+  text-align: center;
+}
+
+p {
+  margin-left: 65px;
+  margin-right: 65px;
+  margin-top: 65px;
+  font-family: "Press Start 2P";
+  font-size: 18px;
+  line-height: 1.5rem;
+  color: #cfffdc;
+  text-rendering: geometricPrecision;
+}
+
+.photocredit {
+  position: relative;
+  left: 220px;
+  top: -50px;
+  font-size: 15px;
+}
+
+.imagebox {
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  width: 225px;
+  height: 300px;
+  padding-top: 65px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.lastimage {
+  padding-top: 30px;
+  width: 600px;
+  height: 450px;
+}
+
+#link {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 65px;
+}
+
+#link:hover {
+  color: #cfffdc;
+  58f479
+}

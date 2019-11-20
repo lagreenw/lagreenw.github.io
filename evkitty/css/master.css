@@ -50,11 +50,11 @@ body {
 }
 
 .start {
-  width: 344px;
-  height: 112px;
+  width: 824px;
+  height: 120px;
   position: absolute;
   top: 530px;
-  left: 328px;
+  left: 88px;
   margin: 0px;
 }
 
@@ -71,9 +71,10 @@ body {
 
 .startbutton {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0px;
+  width: 344px;
+  height: 112px;
+  left: 240px;
+  top: 8px;
   z-index: 2;
   background-color: white;
   font-family: "Press Start 2P";
@@ -83,4 +84,97 @@ body {
 
 .startbutton:hover {
   background-color: #FF0A2A;
+}
+
+.button1 {
+  position: absolute;
+  z-index: 20;
+  width: 113px;
+  height: 120px;
+  top: 0px;
+  left: 0px;
+  opacity: 0;
+  border: 0px;
+  padding: 0px;
+}
+
+.button2 {
+  position: absolute;
+  z-index: 20;
+  width: 113px;
+  height: 113px;
+  top: 7px;
+  left: 120px;
+  opacity: 0;
+  border: 0px;
+  padding: 0px;
+}
+
+.button3 {
+  position: absolute;
+  z-index: 20;
+  width: 113px;
+  height: 113px;
+  top: 7px;
+  left: 591px;
+  opacity: 0;
+  border: 0px;
+  padding: 0px;
+}
+
+.button4 {
+  position: absolute;
+  z-index: 20;
+  width: 113px;
+  height: 113px;
+  top: 7px;
+  left: 712px;
+  opacity: 0;
+  border: 0px;
+  padding: 0px;
+}
+
+.button1:hover {
+  background-color: white;
+  opacity: 0.5;
+}
+
+.button2:hover {
+  background-color: white;
+  opacity: 0.5;
+}
+
+.button3:hover {
+  background-color: white;
+  opacity: 0.5;
+}
+
+.button4:hover {
+  background-color: white;
+  opacity: 0.5;
+}
+
+.byluke {
+  position: relative;
+  text-align: left;
+  top: 800px;
+  left: 242px;
+  font-family: "Press Start 2P";
+  font-size: 15px;
+  color: #58f479;
+  text-rendering: geometricPrecision;
+}
+
+.bylukelink {
+  top: 800px;
+  left: 242px;
+  font-family: "Press Start 2P";
+  font-size: 15px;
+  color: #58f479;
+  text-rendering: geometricPrecision;
+  text-decoration: none;
+}
+
+.bylukelink:hover {
+  color: white;
 }

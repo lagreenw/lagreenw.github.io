@@ -1,0 +1,92 @@
+body {
+  background-color: #289E49;
+  padding-left: 65px;
+  padding-right: 65px;
+  display: inline-block;
+}
+
+p {
+  margin-left: 65px;
+  margin-right: 65px;
+  margin-top: 55px;
+  font-family: "Press Start 2P";
+  font-size: 18px;
+  line-height: 1.5rem;
+  color: #cfffdc;
+  text-rendering: geometricPrecision;
+}
+
+.linkscontainer {
+
+}
+
+h1 {
+  margin-left: 65px;
+  margin-right: 65px;
+  margin-top: 65px;
+  margin-bottom: 65px;
+  font-family: "Press Start 2P";
+  font-size: 40px;
+  line-height: 1.5rem;
+  color: white;
+  text-rendering: geometricPrecision;
+  text-align: center;
+}
+
+.lastimage {
+  padding-top: 30px;
+  width: 600px;
+  height: 450px;
+}
+
+.email {
+  margin-left: 65px;
+  margin-right: 65px;
+  margin-top: 30px;
+  font-family: "Press Start 2P";
+  font-size: 18px;
+  line-height: 1.5rem;
+  color: white;
+  text-decoration: none;
+  text-align: left;
+  display: block;
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+
+.link {
+  margin-left: 65px;
+  margin-right: 65px;
+  font-family: "Press Start 2P";
+  font-size: 18px;
+  line-height: 1.5rem;
+  color: white;
+  text-decoration: none;
+  text-align: left;
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.link:hover {
+  color: #cfffdc;
+  58f479
+}
+
+.homelink {
+  margin: 65px;
+  font-family: "Press Start 2P";
+  font-size: 18px;
+  line-height: 1.5rem;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.homelink:hover {
+  color: #cfffdc;
+  58f479
+}

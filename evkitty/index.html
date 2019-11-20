@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-152934309-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-152934309-1');
+</script>
+
   <head>
     <meta charset="utf-8">
     <title>EVKitty Simulator</title>
@@ -16,9 +26,14 @@
         <video src="video/LogoIntro.mp4" playsinline autoplay muted id="logoanimation"></video>
       </div>
       <div class="start">
-        <img src="image/startbutton.png" alt="" class="startbuttonimage">
-        <button type="button" name="button" class="startbutton" onclick="window.location.href = 'game.html';">START</button>
+        <img src="image/mainbuttons2.png" alt="" class="startbuttonimage">
+        <button type="button" class="startbutton" onclick="window.location.href = 'game.html';">START</button>
+        <button type="button" class='button1' onclick="window.location.href = 'foreword.html';"></button>
+        <button type="button" class='button2' onclick="window.location.href = 'https://www.facebook.com/USCEVKitty/';"></button>
+        <button type="button" class='button3' onclick="window.location.href = 'https://www.instagram.com/evkittyofficial/';"></button>
+        <button type="button" class='button4' onclick="window.location.href = 'https://twitter.com/hashtag/evkitty';"></button>
       </div>
     </div>
   </body>
+  <p class="byluke">Made by <a class="bylukelink" href="notmyportfolio.html">Luke Greenwood</a>, 2019</p>
 </html>
