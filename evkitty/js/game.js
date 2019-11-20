@@ -103,7 +103,7 @@ const textNodes = [
       {
         text: '< Aquire cuddles >',
         nextText: 3,
-        happy: 5,
+        happy: 10,
         chonk: 0,
       },
       {
@@ -122,13 +122,13 @@ const textNodes = [
         text: '< Eat the eggs >',
         nextText: 7,
         happy: 5,
-        chonk: 5
+        chonk: 10
       },
       {
         text: '< Eat the cereal >',
         nextText: 8,
         happy: -15,
-        chonk: 15
+        chonk: 20
       }
     ]
   },
@@ -158,7 +158,7 @@ const textNodes = [
         text: '< See what they offer you >',
         nextText: 51,
         happy: -15,
-        chonk: 5
+        chonk: 10
       }
     ]
   },
@@ -175,7 +175,7 @@ const textNodes = [
       {
         text: '< Aquire cuddles >',
         nextText: 3,
-        happy: 5,
+        happy: 10,
         chonk: 0,
       },
       {
@@ -235,7 +235,7 @@ const textNodes = [
       {
         text: '< Go through EVK >',
         nextText: 10,
-        happy: 20,
+        happy: 25,
         chonk: 0
       },
       {
@@ -277,7 +277,7 @@ const textNodes = [
       {
         text: "< Suppress gluttonous urges >",
         nextText: 13,
-        happy: 20,
+        happy: 25,
         chonk: 0
       }
     ]
@@ -301,7 +301,7 @@ const textNodes = [
       {
         text: '< Escaping EVK is hard work! Take a nap. >',
         nextText: 14,
-        happy: 10,
+        happy: 5,
         chonk: 0
       },
       {
@@ -421,7 +421,7 @@ const textNodes = [
       {
         text: '< Keep listening >',
         nextText: 22,
-        happy: 0,
+        happy: 15,
         chonk: -20
       }
     ]
@@ -433,8 +433,8 @@ const textNodes = [
       {
         text: '< Continue thriving >',
         nextText: 23,
-        happy: 20,
-        chonk: 0
+        happy: 100,
+        chonk: 30
       },
     ]
   },
@@ -445,7 +445,7 @@ const textNodes = [
       {
         text: ' ',
         nextText: 0,
-        happy: 100,
+        happy: 0,
         chonk: 0
       },
     ]
@@ -547,7 +547,7 @@ const textNodes = [
       {
         text: '< Cuddle George Lucas >',
         nextText: 31,
-        happy: 10,
+        happy: 15,
         chonk: 0
       },
       {
@@ -619,7 +619,7 @@ const textNodes = [
       {
         text: '< continue >',
         nextText: 36,
-        happy: 0,
+        happy: 100,
         chonk: 0
       },
     ]
@@ -704,7 +704,7 @@ const textNodes = [
         text: '< Eat him >',
         nextText: 42,
         happy: 0,
-        chonk: 20
+        chonk: 25
       },
       {
         text: '< Go to the dining hall >',
@@ -745,7 +745,7 @@ const textNodes = [
       {
         text: '< Become a street cat >',
         nextText: 44,
-        happy: 20,
+        happy: 15,
         chonk: -30
       }
     ]
@@ -757,7 +757,7 @@ const textNodes = [
       {
         text: '< continue >',
         nextText: 45,
-        happy: 0,
+        happy: 20,
         chonk: 0
       },
     ]
@@ -787,7 +787,7 @@ const textNodes = [
       {
         text: '< Become a street cat >',
         nextText: 44,
-        happy: 20,
+        happy: 15,
         chonk: -30
       }
     ]
