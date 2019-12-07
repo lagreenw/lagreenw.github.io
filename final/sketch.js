@@ -4,8 +4,10 @@ var halfGrid = gridSize / 2;
 var marginX;
 var marginY;
 var balls = [];
+var ballSpeed = 1.2;
 var ballButton;
 var draggingNewBall = false;
+var playIsOn = false;
 
 function preload () {
 
@@ -14,9 +16,9 @@ function preload () {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   gridSize = (width -200) / numberOfSqr;
-  balls[0]  = new Ball(4, 4);
   //create buttons
   ballButton = new BallButton();
+  playButton = new PlayButton(100,75);
 }
 
 
@@ -35,21 +37,28 @@ function draw() {
       rect(100 + x*gridSize, 200 + y*gridSize, gridSize, gridSize);
     }
   }
-  //check buttons
+  //update buttons
   ballButton.hover();
   ballButton.show();
+  playButton.hover();
+  playButton.show();
+  //draw new objects on mouse during drag
   if (draggingNewBall){
     balls[balls.length - 1].moveOnMouseDuringNewDrag();
   }
   //show balls & balls interaction
   for (var i = 0; i < balls.length; i++) {
-    balls[i].show()
     balls[i].moveOnMouse();
+    balls[i].show();
+    if (playIsOn) {
+      balls[i].move();
+    } else {
+      balls[i].returnToReturnPosition();
+      if(balls[i].dragging == false){
+          balls[i].showDirectionLine();
+      }
+    }
   }
-}
-
-function mouseClicked(){
-
 }
 
 function mousePressed(){
@@ -61,21 +70,27 @@ function mousePressed(){
     draggingNewBall = true;
     let b = new Ball(mouseX, mouseY);
     balls.push(b);
-  } else {
-    draggingNewlBall = false;
+  }
+  //toggle play on and off
+  if (mouseX < playButton.x3 && mouseX > playButton.x1 && mouseY > playButton.y1 && mouseY < playButton.y2) {
+    playIsOn = !playIsOn;
   }
 }
 
 function mouseReleased(){
   for (var i = 0; i < balls.length; i++) {
+    balls[i].changeDirection();
     balls[i].release();
   }
   if (draggingNewBall == true){
     draggingNewBall = false;
     let grid = calculateGridPos(mouseX, mouseY);
+    balls[balls.length - 1].xGrid = grid.x;
+    balls[balls.length - 1].yGrid = grid.y;
     let pos = calculateXY(grid.x, grid.y)
     balls[balls.length - 1].x = pos.x;
     balls[balls.length - 1].y = pos.y;
+    balls[balls.length - 1].setReturnPosition();
   }
 }
 
@@ -87,7 +102,8 @@ function windowResized() {
     var y = balls[i].yGrid;
     var pos = calculateXY(x, y);
     balls[i].x = pos.x;
-    balls[i].y = pos.y
+    balls[i].y = pos.y;
+    balls[i].setReturnPosition();
   }
 }
 
@@ -123,41 +139,104 @@ function calculateXY(x, y){
 
 class Ball {
   constructor(tempX, tempY){
-    var pos = calculateXY(tempX, tempY);
-    this.x = pos.x;
-    this.y = pos.y;
-    this.xGrid = tempX;
-    this.yGrid = tempY;
+    var grid = calculateGridPos(tempX, tempY);
+    this.xGrid = grid.x;
+    this.yGrid = grid.y;
+    this.x = tempX;
+    this.y = tempY;
+    this.returnPositionX;
+    this.returnPositionY;
     this.dragging = false;
+    this.direction = 0;
   }
   mouseOverBall(){
     if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2){
       this.dragging = true;
     }
   }
-  release(){
-    if(this.dragging){
-      this.dragging = false;
-      var grid = calculateGridPos(mouseX, mouseY);
-      var pos = calculateXY(grid.x, grid.y);
-      this.x = pos.x;
-      this.y = pos.y;
+  changeDirection(){
+    if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2 && mouseY > (this.returnPositionY - gridSize / 2) && mouseY < (this.returnPositionY + gridSize/2)){
+      if (this.direction <= 2){
+        this.direction = this.direction + 1;
+      } else {
+        this.direction = 0;
+      }
     }
   }
   moveOnMouse(){
     if(this.dragging){
       this.x = mouseX;
       this.y = mouseY;
+      this.showDirectionLine();
     }
   }
   moveOnMouseDuringNewDrag(){
     this.x = mouseX;
     this.y = mouseY;
+    this.showDirectionLine();
+  }
+  release(){
+    if(this.dragging){
+      this.dragging = false;
+      var grid = calculateGridPos(mouseX, mouseY);
+      this.xGrid = grid.x;
+      this.yGrid = grid.y;
+      var pos = calculateXY(grid.x, grid.y);
+      this.x = pos.x;
+      this.y = pos.y;
+      this.setReturnPosition();
+    }
+  }
+  setReturnPosition(){
+    this.returnPositionX = this.x;
+    this.returnPositionY = this.y;
+  }
+  move(){
+    if (this.direction == 0) {
+      this.x = this.x + ballSpeed;
+    } else if (this.direction == 1) {
+      this.y = this.y + ballSpeed;
+    } else if (this.direction == 2) {
+      this.x = this.x - ballSpeed;
+    } else if (this.direction == 3) {
+      this.y = this.y - ballSpeed;
+    }
+  }
+  returnToReturnPosition(){
+    this.x = this.returnPositionX;
+    this.y = this.returnPositionY;
   }
   show(){
     fill(0);
     strokeWeight(1);
     ellipse(this.x, this.y, 15, 15);
+  }
+  showDirectionLine(){
+    if (this.direction == 0) {
+      strokeWeight(2);
+      line(this.x, this.y, this.x + gridSize/2, this.y);
+      line(this.x + gridSize/2, this.y, (this.x + gridSize/2) - 5, this.y - 5);
+      line(this.x + gridSize/2, this.y, (this.x + gridSize/2) - 5, this.y + 5);
+      this.show();
+    } else if (this.direction == 1) {
+      strokeWeight(2);
+      line(this.x, this.y, this.x, this.y  + gridSize/2);
+      line(this.x, this.y + gridSize/2, this.x + 5, (this.y + gridSize/2) - 5);
+      line(this.x, this.y + gridSize/2, this.x - 5, (this.y + gridSize/2) - 5);
+      this.show();
+    } else if (this.direction == 2) {
+      strokeWeight(2);
+      line(this.x, this.y, this.x - gridSize/2, this.y);
+      line(this.x - gridSize/2, this.y, (this.x - gridSize/2) + 5, this.y - 5);
+      line(this.x - gridSize/2, this.y, (this.x - gridSize/2) + 5, this.y + 5);
+      this.show();
+    } else {
+      strokeWeight(2);
+      line(this.x, this.y, this.x, this.y  - gridSize/2);
+      line(this.x, this.y - gridSize/2, this.x + 5, (this.y - gridSize/2) + 5);
+      line(this.x, this.y - gridSize/2, this.x - 5, (this.y - gridSize/2) + 5);
+      this.show();
+    }
   }
 }
 
@@ -165,7 +244,7 @@ class Ball {
 
 class BallButton {
   constructor() {
-    this.x = 100;
+    this.x = 200;
     this.y = 100;
     this.d = 50;
     this.color = 0;
@@ -182,5 +261,35 @@ class BallButton {
     fill(this.color);
     strokeWeight(4);
     ellipse(this.x, this.y, this.d);
+  }
+}
+
+class PlayButton {
+  constructor(topLeftX, topLeftY){
+    this.x1 = topLeftX;
+    this.y1 = topLeftY;
+    this.x2 = topLeftX;
+    this.y2 = topLeftY + 50;
+    this.x3 = topLeftX + 30;
+    this.y3 = topLeftY + 25;
+    this.colorR = 0;
+    this.colorG = 150;
+    this.colorB = 0;
+  }
+  hover() {
+    var d = dist(this.x3, this.y3, mouseX, mouseY);
+    if (mouseX < this.x3 && mouseX > this.x1 && mouseY > this.y1 && mouseY < this.y2) {
+      this.colorR = 50;
+      this.colorG = 200;
+      this.colorB = 50;
+    } else {
+      this.colorR = 0;
+      this.colorG = 150;
+      this.colorB = 0;
+    }
+  }
+  show(){
+    fill(this.colorR, this.colorG, this.colorB);
+    triangle(this.x1, this.y1, this.x2, this.y2, this.x3, this.y3);
   }
 }
