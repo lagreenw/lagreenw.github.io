@@ -1,16 +1,65 @@
+var backgroundColor = 100;
 var gridSize;
 var numberOfSqr = 20;
-var halfGrid = gridSize / 2;
 var marginX;
 var marginY;
 var balls = [];
-var ballSpeed = 1.2;
+var ballSpeed;
+var ballSpeedUserInput = 1;
 var ballButton;
 var draggingNewBall = false;
 var playIsOn = false;
 
-function preload () {
+let nameC;
+let nameD;
+let nameE;
+let nameF;
+let nameG;
+let nameA;
+let nameB;
+let nameCTwo;
+let upSlashC;
+let upSlashD;
+let upSlashE;
+let upSlashF;
+let upSlashG;
+let upSlashA;
+let upSlashB;
+let upSlashCTwo;
+let downSlashC;
+let downSlashD;
+let downSlashE;
+let downSlashF;
+let downSlashG;
+let downSlashA;
+let downSlashB;
+let downSlashCTwo;
 
+function preload () {
+  nameC = loadImage('image/nameC.png');
+  nameD = loadImage('image/nameD.png');
+  nameE = loadImage('image/nameE.png');
+  nameF = loadImage('image/nameF.png');
+  nameG = loadImage('image/nameG.png');
+  nameA = loadImage('image/nameA.png');
+  nameB = loadImage('image/nameB.png');
+  nameCTwo = loadImage('image/nameC2.png');
+  upSlashC = loadImage('image/upSlashC.png');
+  upSlashD = loadImage('image/upSlashD.png');
+  upSlashE = loadImage('image/upSlashE.png');
+  upSlashF = loadImage('image/upSlashF.png');
+  upSlashG = loadImage('image/upSlashG.png');
+  upSlashA = loadImage('image/upSlashA.png');
+  upSlashB = loadImage('image/upSlashB.png');
+  upSlashCTwo = loadImage('image/upSlashC2.png');
+  downSlashC = loadImage('image/downSlashC.png');
+  downSlashD = loadImage('image/downSlashD.png');
+  downSlashE = loadImage('image/downSlashE.png');
+  downSlashF = loadImage('image/downSlashF.png');
+  downSlashG = loadImage('image/downSlashG.png');
+  downSlashA = loadImage('image/downSlashA.png');
+  downSlashB = loadImage('image/downSlashB.png');
+  downSlashCTwo = loadImage('image/downSlashC2.png');
 }
 
 function setup() {
@@ -19,12 +68,14 @@ function setup() {
   //create buttons
   ballButton = new BallButton();
   playButton = new PlayButton(100,75);
+  noteButtonC = new NoteButtonC();
+  noteButtonD = new NoteButtonD();
 }
 
 
 
 function draw() {
-  background(100);
+  background(backgroundColor);
   // draw grid
   marginX = (width - (numberOfSqr*gridSize))/2;
   marginY = (height - (numberOfSqr*gridSize))/3;
@@ -42,6 +93,10 @@ function draw() {
   ballButton.show();
   playButton.hover();
   playButton.show();
+  noteButtonC.hover();
+  noteButtonC.show();
+  noteButtonD.hover();
+  noteButtonD.show();
   //draw new objects on mouse during drag
   if (draggingNewBall){
     balls[balls.length - 1].moveOnMouseDuringNewDrag();
@@ -79,7 +134,7 @@ function mousePressed(){
 
 function mouseReleased(){
   for (var i = 0; i < balls.length; i++) {
-    balls[i].changeDirection();
+    balls[i].setDirection();
     balls[i].release();
   }
   if (draggingNewBall == true){
@@ -154,7 +209,7 @@ class Ball {
       this.dragging = true;
     }
   }
-  changeDirection(){
+  setDirection(){
     if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2 && mouseY > (this.returnPositionY - gridSize / 2) && mouseY < (this.returnPositionY + gridSize/2)){
       if (this.direction <= 2){
         this.direction = this.direction + 1;
@@ -192,6 +247,7 @@ class Ball {
     this.returnPositionY = this.y;
   }
   move(){
+    ballSpeed = (gridSize/30)*ballSpeedUserInput;
     if (this.direction == 0) {
       this.x = this.x + ballSpeed;
     } else if (this.direction == 1) {
@@ -209,7 +265,7 @@ class Ball {
   show(){
     fill(0);
     strokeWeight(1);
-    ellipse(this.x, this.y, 15, 15);
+    ellipse(this.x, this.y, gridSize/4, gridSize/4);
   }
   showDirectionLine(){
     if (this.direction == 0) {
@@ -291,5 +347,51 @@ class PlayButton {
   show(){
     fill(this.colorR, this.colorG, this.colorB);
     triangle(this.x1, this.y1, this.x2, this.y2, this.x3, this.y3);
+  }
+}
+
+class NoteButtonC {
+  constructor(){
+    this.x = 300;
+    this.y = 100;
+    this.s = 50;
+    this.color = backgroundColor;
+  }
+  hover() {
+    if (mouseX > this.x - this.s/2 && mouseX < this.x + this.s/2 && mouseY > this.y - this.s/2 && mouseY < this.y + this.s/2) {
+      this.color = backgroundColor + 50;
+    } else {
+      this.color = backgroundColor;
+    }
+  }
+  show(){
+    fill(this.color);
+    strokeWeight(0);
+    rectMode(CENTER);
+    square(this.x, this.y, this.s);
+    image(nameC, this.x - this.s*.5, this.y - this.s*.5, this.s, this.s);
+  }
+}
+
+class NoteButtonD {
+  constructor(){
+    this.x = 350;
+    this.y = 100;
+    this.s = 50;
+    this.color = backgroundColor;
+  }
+  hover() {
+    if (mouseX > this.x - this.s/2 && mouseX < this.x + this.s/2 && mouseY > this.y - this.s/2 && mouseY < this.y + this.s/2) {
+      this.color = backgroundColor + 50;
+    } else {
+      this.color = backgroundColor;
+    }
+  }
+  show(){
+    fill(this.color);
+    strokeWeight(0);
+    rectMode(CENTER);
+    square(this.x, this.y, this.s);
+    image(nameD, this.x - this.s*.5, this.y - this.s*.5, this.s, this.s);
   }
 }
