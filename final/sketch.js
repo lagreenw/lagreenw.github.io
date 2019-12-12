@@ -44,6 +44,7 @@ let downSlashG;
 let downSlashA;
 let downSlashB;
 let downSlashCTwo;
+let trash;
 
 let noteCSound;
 let noteDSound;
@@ -79,6 +80,7 @@ function preload () {
   downSlashA = loadImage('image/downSlashA.png');
   downSlashB = loadImage('image/downSlashB.png');
   downSlashCTwo = loadImage('image/downSlashC2.png');
+  trash = loadImage('image/trash.png');
   soundFormats('mp3');
   noteCSound = loadSound('sound/noteCSound.mp3');
   noteDSound = loadSound('sound/noteDSound.mp3');
@@ -104,6 +106,7 @@ function setup() {
   noteButtonA = new NoteButtonA();
   noteButtonB = new NoteButtonB();
   noteButtonCTwo = new NoteButtonCTwo();
+  trashButton = new TrashButton();
 }
 
 
@@ -143,6 +146,8 @@ function draw() {
   noteButtonB.show();
   noteButtonCTwo.hover();
   noteButtonCTwo.show();
+  trashButton.hover();
+  trashButton.show();
   //draw new objects on mouse during drag
   if (draggingNewBall){
     balls[balls.length - 1].moveOnMouseDuringNewDrag();
@@ -257,8 +262,14 @@ function touchStarted (){
 
 function mouseReleased(){
   for (var i = 0; i < balls.length; i++) {
-    balls[i].setDirection();
-    balls[i].release();
+    if(mouseX > (trashButton.x - trashButton.s/2) && mouseX < (trashButton.x + trashButton.s/2) && mouseY > (trashButton.y - trashButton.s/2) && mouseY < (trashButton.y + trashButton.s/2)){
+      if(balls[i].dragging || draggingNewBall){
+        balls.splice(i, 1);
+      }
+    } else {
+      balls[i].setDirection();
+      balls[i].release();
+    }
     //don't allow user to place a ball on a square that's already occupied by a ball
     // for (var iOther = 0; iOther < balls.length; iOther++) {
     //   if (i !== iOther && dist(balls[iOther].x, balls[iOther].y, balls[i].x, balls[i].y) < gridSize/2 && balls[iOther].y > (balls[i].y - gridSize / 2) && balls[iOther].y < (balls[i].y + gridSize/2)) {
@@ -287,8 +298,14 @@ function mouseReleased(){
   }
   //for note blocks
   for (var i = 0; i < notes.length; i++) {
-    notes[i].setDirection();
-    notes[i].release();
+    if(mouseX > (trashButton.x - trashButton.s/2) && mouseX < (trashButton.x + trashButton.s/2) && mouseY > (trashButton.y - trashButton.s/2) && mouseY < (trashButton.y + trashButton.s/2)){
+      if(notes[i].dragging || draggingNewNote){
+        notes.splice(i, 1);
+      }
+    } else {
+      notes[i].setDirection();
+      notes[i].release();
+    }
   }
   if (draggingNewNote == true){
     draggingNewNote = false;
@@ -348,8 +365,6 @@ function calculateXY(x, y){
   var tempY = 200 + y*gridSize;
   return {x:tempX, y:tempY};
 }
-
-
 
 
 
@@ -604,6 +619,24 @@ class NoteBlock {
     }
     if(this.note == 1){
       noteDSound.play();
+    }
+    if(this.note == 2){
+      noteESound.play();
+    }
+    if(this.note == 3){
+      noteFSound.play();
+    }
+    if(this.note == 4){
+      noteGSound.play();
+    }
+    if(this.note == 5){
+      noteASound.play();
+    }
+    if(this.note == 6){
+      noteBSound.play();
+    }
+    if(this.note == 7){
+      noteC2Sound.play();
     }
   }
   show(){
@@ -895,5 +928,28 @@ class NoteButtonCTwo {
     rectMode(CENTER);
     square(this.x, this.y, this.s);
     image(nameCTwo, this.x - this.s*.5, this.y - this.s*.5, this.s, this.s);
+  }
+}
+
+class TrashButton {
+  constructor(){
+    this.x = 750;
+    this.y = 100;
+    this.s = 70;
+    this.color = backgroundColor;
+  }
+  hover() {
+    if (mouseX > this.x - this.s/2 && mouseX < this.x + this.s/2 && mouseY > this.y - this.s/2 && mouseY < this.y + this.s/2) {
+      this.color = backgroundColor + 50;
+    } else {
+      this.color = backgroundColor;
+    }
+  }
+  show(){
+    fill(this.color);
+    strokeWeight(0);
+    rectMode(CENTER);
+    square(this.x, this.y, this.s);
+    image(trash, this.x - this.s*.5, this.y - this.s*.5, this.s, this.s);
   }
 }
