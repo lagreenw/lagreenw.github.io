@@ -6,8 +6,18 @@ var marginY;
 var balls = [];
 var ballSpeed;
 var ballSpeedUserInput = 1;
-var ballButton;
 var draggingNewBall = false;
+var notes = [];
+var draggingNewNote = false;
+var ballButton;
+var noteButtonC;
+var noteButtonD;
+var noteButtonE;
+var noteButtonF;
+var noteButtonG;
+var noteButtonA;
+var noteButtonB;
+var noteButtonCTwo;
 var playIsOn = false;
 
 let nameC;
@@ -101,12 +111,16 @@ function draw() {
   if (draggingNewBall){
     balls[balls.length - 1].moveOnMouseDuringNewDrag();
   }
+  if (draggingNewNote){
+    notes[notes.length - 1].moveOnMouseDuringNewDrag();
+  }
   //show balls & balls interaction
   for (var i = 0; i < balls.length; i++) {
     balls[i].moveOnMouse();
     balls[i].show();
     if (playIsOn) {
       balls[i].move();
+      balls[i].bounce();
     } else {
       balls[i].returnToReturnPosition();
       if(balls[i].dragging == false){
@@ -114,17 +128,32 @@ function draw() {
       }
     }
   }
+  //show note blocks
+  for (var i = 0; i < notes.length; i++) {
+    notes[i].moveOnMouse();
+    notes[i].show();
+  }
 }
 
 function mousePressed(){
   for (var i = 0; i < balls.length; i++) {
     balls[i].mouseOverBall();
   }
+  for (var i = 0; i < notes.length; i++) {
+    notes[i].mouseOverNote();
+  }
   //initiate draggingNewBall
   if (dist(mouseX, mouseY, ballButton.x, ballButton.y) < ballButton.d/2){
     draggingNewBall = true;
     let b = new Ball(mouseX, mouseY);
     balls.push(b);
+  }
+  //initiate draggingNewNote for C
+  if (dist(mouseX, mouseY, noteButtonC.x, noteButtonC.y) < noteButtonC.s/2){
+    print("hey");
+    draggingNewNote = true;
+    let n = new NoteBlock(mouseX, mouseY);
+    notes.push(n);
   }
   //toggle play on and off
   if (mouseX < playButton.x3 && mouseX > playButton.x1 && mouseY > playButton.y1 && mouseY < playButton.y2) {
@@ -136,6 +165,21 @@ function mouseReleased(){
   for (var i = 0; i < balls.length; i++) {
     balls[i].setDirection();
     balls[i].release();
+    //don't allow user to place a ball on a square that's already occupied by a ball
+    // for (var iOther = 0; iOther < balls.length; iOther++) {
+    //   if (i !== iOther && dist(balls[iOther].x, balls[iOther].y, balls[i].x, balls[i].y) < gridSize/2 && balls[iOther].y > (balls[i].y - gridSize / 2) && balls[iOther].y < (balls[i].y + gridSize/2)) {
+    //     print("CALLED");
+    //     print(draggingNewBall);
+    //     if(draggingNewBall == true) {
+    //       draggingNewBall = false;
+    //       print("should splice");
+    //       splice(balls, balls.length - 1, 1);
+    //     } else {
+    //       balls[i].returnToReturnPosition();
+    //       print("should return");
+    //     }
+    //   }
+    // }
   }
   if (draggingNewBall == true){
     draggingNewBall = false;
@@ -146,6 +190,21 @@ function mouseReleased(){
     balls[balls.length - 1].x = pos.x;
     balls[balls.length - 1].y = pos.y;
     balls[balls.length - 1].setReturnPosition();
+  }
+  //for note blocks
+  for (var i = 0; i < notes.length; i++) {
+    notes[i].setDirection();
+    notes[i].release();
+  }
+  if (draggingNewNote == true){
+    draggingNewNote = false;
+    let grid = calculateGridPos(mouseX, mouseY);
+    notes[notes.length - 1].xGrid = grid.x;
+    notes[notes.length - 1].yGrid = grid.y;
+    let pos = calculateXY(grid.x, grid.y)
+    notes[notes.length - 1].x = pos.x;
+    notes[notes.length - 1].y = pos.y;
+    // notes[notes.length - 1].setReturnPosition();
   }
 }
 
@@ -209,8 +268,17 @@ class Ball {
       this.dragging = true;
     }
   }
+  // intersects(other){
+  //   if (dist(balls[other].x, balls[other].y, this.x, this.y) < gridSize/2 && balls[other].y > (this.y - gridSize / 2) && balls[other].y < (this.y + gridSize/2)){
+  //     return true;
+  //     print("true!");
+  //   } else {
+  //     return false;
+  //   }
+  // }
   setDirection(){
-    if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2 && mouseY > (this.returnPositionY - gridSize / 2) && mouseY < (this.returnPositionY + gridSize/2)){
+    // if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2 && mouseY > (this.returnPositionY - gridSize / 2) && mouseY < (this.returnPositionY + gridSize/2)){
+    if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2 && mouseY > (this.y - gridSize / 2) && mouseY < (this.y + gridSize/2)){
       if (this.direction <= 2){
         this.direction = this.direction + 1;
       } else {
@@ -246,6 +314,16 @@ class Ball {
     this.returnPositionX = this.x;
     this.returnPositionY = this.y;
   }
+  bounce(){
+    //bounces if moving right
+    if (this.direction == 0) {
+      for (var i = 0; i < notes.length; i++) {
+        if((notes[i].y - gridSize/2) < this.y && this.y < (notes[i].y + gridSize/2) && notes[i].x <= this.x && this.x < (notes[i].x + gridSize/2)) {
+          this.direction = 3;
+        }
+      }
+    }
+  }
   move(){
     ballSpeed = (gridSize/30)*ballSpeedUserInput;
     if (this.direction == 0) {
@@ -266,6 +344,8 @@ class Ball {
     fill(0);
     strokeWeight(1);
     ellipse(this.x, this.y, gridSize/4, gridSize/4);
+    //print(this.x);
+    //print(this.y);
   }
   showDirectionLine(){
     if (this.direction == 0) {
@@ -296,6 +376,55 @@ class Ball {
   }
 }
 
+
+class NoteBlock {
+  constructor(tempX = mouseX, tempY = mouseY){
+    var grid = calculateGridPos(tempX, tempY);
+    this.xGrid = grid.x;
+    this.yGrid = grid.y;
+    this.x = tempX;
+    this.y = tempY;
+    this.returnPositionX;
+    this.returnPositionY;
+    this.dragging = false;
+    this.upDirection = true;
+  }
+  mouseOverNote(){
+    if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2){
+      this.dragging = true;
+    }
+  }
+  setDirection(){
+    if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2 && mouseY > (this.returnPositionY - gridSize / 2) && mouseY < (this.returnPositionY + gridSize/2)){
+      this.upDirection = !this.upDirection;
+    }
+  }
+  moveOnMouse(){
+    if(this.dragging){
+      this.x = mouseX;
+      this.y = mouseY;
+    }
+  }
+  moveOnMouseDuringNewDrag(){
+    this.x = mouseX;
+    this.y = mouseY;
+  }
+  release(){
+    if(this.dragging){
+      this.dragging = false;
+      var grid = calculateGridPos(mouseX, mouseY);
+      this.xGrid = grid.x;
+      this.yGrid = grid.y;
+      var pos = calculateXY(grid.x, grid.y);
+      this.x = pos.x;
+      this.y = pos.y;
+      // this.setReturnPosition();
+    }
+  }
+  show(){
+    image(upSlashC, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+  }
+}
 
 
 class BallButton {
