@@ -45,6 +45,15 @@ let downSlashA;
 let downSlashB;
 let downSlashCTwo;
 
+let noteCSound;
+let noteDSound;
+let noteESound;
+let noteFSound;
+let noteGSound;
+let noteASound;
+let noteBSound;
+let noteC2Sound;
+
 function preload () {
   nameC = loadImage('image/nameC.png');
   nameD = loadImage('image/nameD.png');
@@ -70,6 +79,15 @@ function preload () {
   downSlashA = loadImage('image/downSlashA.png');
   downSlashB = loadImage('image/downSlashB.png');
   downSlashCTwo = loadImage('image/downSlashC2.png');
+  soundFormats('mp3');
+  noteCSound = loadSound('sound/noteCSound.mp3');
+  noteDSound = loadSound('sound/noteDSound.mp3');
+  noteESound = loadSound('sound/noteESound.mp3');
+  noteFSound = loadSound('sound/noteFSound.mp3');
+  noteGSound = loadSound('sound/noteGSound.mp3');
+  noteASound = loadSound('sound/noteASound.mp3');
+  noteBSound = loadSound('sound/noteBSound.mp3');
+  noteC2Sound = loadSound('sound/noteC2Sound.mp3');
 }
 
 function setup() {
@@ -80,6 +98,12 @@ function setup() {
   playButton = new PlayButton(100,75);
   noteButtonC = new NoteButtonC();
   noteButtonD = new NoteButtonD();
+  noteButtonE = new NoteButtonE();
+  noteButtonF = new NoteButtonF();
+  noteButtonG = new NoteButtonG();
+  noteButtonA = new NoteButtonA();
+  noteButtonB = new NoteButtonB();
+  noteButtonCTwo = new NoteButtonCTwo();
 }
 
 
@@ -107,6 +131,18 @@ function draw() {
   noteButtonC.show();
   noteButtonD.hover();
   noteButtonD.show();
+  noteButtonE.hover();
+  noteButtonE.show();
+  noteButtonF.hover();
+  noteButtonF.show();
+  noteButtonG.hover();
+  noteButtonG.show();
+  noteButtonA.hover();
+  noteButtonA.show();
+  noteButtonB.hover();
+  noteButtonB.show();
+  noteButtonCTwo.hover();
+  noteButtonCTwo.show();
   //draw new objects on mouse during drag
   if (draggingNewBall){
     balls[balls.length - 1].moveOnMouseDuringNewDrag();
@@ -123,6 +159,7 @@ function draw() {
       balls[i].bounce();
     } else {
       balls[i].returnToReturnPosition();
+      balls[i].returnToReturnDirection();
       if(balls[i].dragging == false){
           balls[i].showDirectionLine();
       }
@@ -148,16 +185,73 @@ function mousePressed(){
     let b = new Ball(mouseX, mouseY);
     balls.push(b);
   }
+  //notes have number values in order of pitch
+  //C - 0
+  //D - 1
+  //E - 2
+  //F - 3
+  //G - 4
+  //A - 5
+  //B - 6
+  //C (octave) - 7
   //initiate draggingNewNote for C
   if (dist(mouseX, mouseY, noteButtonC.x, noteButtonC.y) < noteButtonC.s/2){
-    print("hey");
     draggingNewNote = true;
-    let n = new NoteBlock(mouseX, mouseY);
+    let n = new NoteBlock(0, mouseX, mouseY);
+    notes.push(n);
+  }
+  //initiate draggingNewNote for D
+  if (dist(mouseX, mouseY, noteButtonD.x, noteButtonD.y) < noteButtonD.s/2){
+    draggingNewNote = true;
+    let n = new NoteBlock(1, mouseX, mouseY);
+    notes.push(n);
+  }
+  //initiate draggingNewNote for E
+  if (dist(mouseX, mouseY, noteButtonE.x, noteButtonE.y) < noteButtonE.s/2){
+    draggingNewNote = true;
+    let n = new NoteBlock(2, mouseX, mouseY);
+    notes.push(n);
+  }
+  //initiate draggingNewNote for F
+  if (dist(mouseX, mouseY, noteButtonF.x, noteButtonF.y) < noteButtonF.s/2){
+    draggingNewNote = true;
+    let n = new NoteBlock(3, mouseX, mouseY);
+    notes.push(n);
+  }
+  //initiate draggingNewNote for G
+  if (dist(mouseX, mouseY, noteButtonG.x, noteButtonG.y) < noteButtonG.s/2){
+    draggingNewNote = true;
+    let n = new NoteBlock(4, mouseX, mouseY);
+    notes.push(n);
+  }
+  //initiate draggingNewNote for A
+  if (dist(mouseX, mouseY, noteButtonA.x, noteButtonA.y) < noteButtonA.s/2){
+    draggingNewNote = true;
+    let n = new NoteBlock(5, mouseX, mouseY);
+    notes.push(n);
+  }
+  //initiate draggingNewNote for B
+  if (dist(mouseX, mouseY, noteButtonB.x, noteButtonB.y) < noteButtonB.s/2){
+    draggingNewNote = true;
+    let n = new NoteBlock(6, mouseX, mouseY);
+    notes.push(n);
+  }
+  //initiate draggingNewNote for C (octave)
+  if (dist(mouseX, mouseY, noteButtonCTwo.x, noteButtonCTwo.y) < noteButtonCTwo.s/2){
+    draggingNewNote = true;
+    let n = new NoteBlock(7, mouseX, mouseY);
     notes.push(n);
   }
   //toggle play on and off
   if (mouseX < playButton.x3 && mouseX > playButton.x1 && mouseY > playButton.y1 && mouseY < playButton.y2) {
     playIsOn = !playIsOn;
+  }
+}
+
+//does this actually do anything??
+function touchStarted (){
+  if (getAudioContext().state !== 'running'){
+    getAudioContext.resume();
   }
 }
 
@@ -204,7 +298,7 @@ function mouseReleased(){
     let pos = calculateXY(grid.x, grid.y)
     notes[notes.length - 1].x = pos.x;
     notes[notes.length - 1].y = pos.y;
-    // notes[notes.length - 1].setReturnPosition();
+    notes[notes.length - 1].setReturnPosition();
   }
 }
 
@@ -218,6 +312,14 @@ function windowResized() {
     balls[i].x = pos.x;
     balls[i].y = pos.y;
     balls[i].setReturnPosition();
+  }
+  for (var i = 0; i < notes.length; i++) {
+    var x = notes[i].xGrid;
+    var y = notes[i].yGrid;
+    var pos = calculateXY(x, y);
+    notes[i].x = pos.x;
+    notes[i].y = pos.y;
+    notes[i].setReturnPosition();
   }
 }
 
@@ -262,6 +364,9 @@ class Ball {
     this.returnPositionY;
     this.dragging = false;
     this.direction = 0;
+    this.returnDirection = 0;
+    this.moveTimerOn = false;
+    this.moveTimer = 0;
   }
   mouseOverBall(){
     if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2){
@@ -277,12 +382,14 @@ class Ball {
   //   }
   // }
   setDirection(){
-    // if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2 && mouseY > (this.returnPositionY - gridSize / 2) && mouseY < (this.returnPositionY + gridSize/2)){
-    if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2 && mouseY > (this.y - gridSize / 2) && mouseY < (this.y + gridSize/2)){
+    if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2 && mouseY > (this.returnPositionY - gridSize / 2) && mouseY < (this.returnPositionY + gridSize/2)){
+    // if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2 && mouseY > (this.y - gridSize / 2) && mouseY < (this.y + gridSize/2)){
       if (this.direction <= 2){
         this.direction = this.direction + 1;
+        this.returnDirection = this.returnDirection + 1;
       } else {
         this.direction = 0;
+        this.returnDirection = 0;
       }
     }
   }
@@ -315,11 +422,64 @@ class Ball {
     this.returnPositionY = this.y;
   }
   bounce(){
-    //bounces if moving right
-    if (this.direction == 0) {
-      for (var i = 0; i < notes.length; i++) {
-        if((notes[i].y - gridSize/2) < this.y && this.y < (notes[i].y + gridSize/2) && notes[i].x <= this.x && this.x < (notes[i].x + gridSize/2)) {
-          this.direction = 3;
+    if(!this.moveTimerOn){
+      //bounces if moving right
+      if (this.direction == 0) {
+        for (var i = 0; i < notes.length; i++) {
+          if((notes[i].y - gridSize/2) < this.y && this.y < (notes[i].y + gridSize/2) && notes[i].x <= this.x && this.x < (notes[i].x + gridSize/2)) {
+            notes[i].playNote();
+            if(notes[i].upDirection){
+              this.direction = 3;
+              this.moveTimerOn = true;
+            } else {
+              this.direction = 1;
+              this.moveTimerOn = true;
+            }
+          }
+        }
+      } else
+      //bounces if moving down
+      if (this.direction == 1) {
+        for (var i = 0; i < notes.length; i++) {
+          if((notes[i].x - gridSize/2) < this.x && this.x < (notes[i].x + gridSize/2) && notes[i].y <= this.y && this.y < (notes[i].y + gridSize/2)) {
+            notes[i].playNote();
+            if(notes[i].upDirection){
+              this.direction = 2;
+              this.moveTimerOn = true;
+            } else {
+              this.direction = 0;
+              this.moveTimerOn = true;
+            }
+          }
+        }
+      } else
+      //bounces if moving left
+      if (this.direction == 2) {
+        for (var i = 0; i < notes.length; i++) {
+          if((notes[i].y - gridSize/2) < this.y && this.y < (notes[i].y + gridSize/2) && notes[i].x >= this.x && this.x > (notes[i].x - gridSize/2)) {
+            notes[i].playNote();
+            if(notes[i].upDirection){
+              this.direction = 1;
+              this.moveTimerOn = true;
+            } else {
+              this.direction = 3;
+              this.moveTimerOn = true;
+            }
+          }
+        }
+      } else
+      if (this.direction == 3) {
+        for (var i = 0; i < notes.length; i++) {
+          if((notes[i].x - gridSize/2) < this.x && this.x < (notes[i].x + gridSize/2) && notes[i].y >= this.y && this.y > (notes[i].y - gridSize/2)) {
+            notes[i].playNote();
+            if(notes[i].upDirection){
+              this.direction = 0;
+              this.moveTimerOn = true;
+            } else {
+              this.direction = 2;
+              this.moveTimerOn = true;
+            }
+          }
         }
       }
     }
@@ -335,10 +495,21 @@ class Ball {
     } else if (this.direction == 3) {
       this.y = this.y - ballSpeed;
     }
+    if(this.moveTimerOn){
+      if (this.moveTimer < 16) {
+        this.moveTimer = this.moveTimer + 1;
+      } else {
+        this.moveTimerOn = false;
+        this.moveTimer = 0;
+      }
+    }
   }
   returnToReturnPosition(){
     this.x = this.returnPositionX;
     this.y = this.returnPositionY;
+  }
+  returnToReturnDirection(){
+    this.direction = this.returnDirection;
   }
   show(){
     fill(0);
@@ -378,7 +549,7 @@ class Ball {
 
 
 class NoteBlock {
-  constructor(tempX = mouseX, tempY = mouseY){
+  constructor(note, tempX = mouseX, tempY = mouseY){
     var grid = calculateGridPos(tempX, tempY);
     this.xGrid = grid.x;
     this.yGrid = grid.y;
@@ -388,6 +559,7 @@ class NoteBlock {
     this.returnPositionY;
     this.dragging = false;
     this.upDirection = true;
+    this.note = note;
   }
   mouseOverNote(){
     if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2){
@@ -396,8 +568,13 @@ class NoteBlock {
   }
   setDirection(){
     if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2 && mouseY > (this.returnPositionY - gridSize / 2) && mouseY < (this.returnPositionY + gridSize/2)){
-      this.upDirection = !this.upDirection;
+    //if(dist(mouseX, mouseY, this.x, this.y) < gridSize/2 && mouseY > (this.y - gridSize / 2) && mouseY < (this.y + gridSize/2)){
+        this.upDirection = !this.upDirection;
     }
+  }
+  setReturnPosition(){
+    this.returnPositionX = this.x;
+    this.returnPositionY = this.y;
   }
   moveOnMouse(){
     if(this.dragging){
@@ -418,11 +595,69 @@ class NoteBlock {
       var pos = calculateXY(grid.x, grid.y);
       this.x = pos.x;
       this.y = pos.y;
-      // this.setReturnPosition();
+      this.setReturnPosition();
+    }
+  }
+  playNote(){
+    if(this.note == 0){
+      noteCSound.play();
+    }
+    if(this.note == 1){
+      noteDSound.play();
     }
   }
   show(){
-    image(upSlashC, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+    if (this.upDirection == true) {
+      if (this.note == 0){
+        image(upSlashC, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 1){
+        image(upSlashD, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 2){
+        image(upSlashE, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 3){
+        image(upSlashF, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 4){
+        image(upSlashG, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 5){
+        image(upSlashA, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 6){
+        image(upSlashB, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 7){
+        image(upSlashCTwo, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      }
+    } else {
+      if (this.note == 0){
+        image(downSlashC, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 1){
+        image(downSlashD, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 2){
+        image(downSlashE, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 3){
+        image(downSlashF, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 4){
+        image(downSlashG, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 5){
+        image(downSlashA, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 6){
+        image(downSlashB, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      } else
+      if (this.note == 7){
+        image(downSlashCTwo, this.x - gridSize/2, this.y - gridSize/2, gridSize, gridSize);
+      }
+    }
   }
 }
 
@@ -522,5 +757,143 @@ class NoteButtonD {
     rectMode(CENTER);
     square(this.x, this.y, this.s);
     image(nameD, this.x - this.s*.5, this.y - this.s*.5, this.s, this.s);
+  }
+}
+
+class NoteButtonE {
+  constructor(){
+    this.x = 400;
+    this.y = 100;
+    this.s = 50;
+    this.color = backgroundColor;
+  }
+  hover() {
+    if (mouseX > this.x - this.s/2 && mouseX < this.x + this.s/2 && mouseY > this.y - this.s/2 && mouseY < this.y + this.s/2) {
+      this.color = backgroundColor + 50;
+    } else {
+      this.color = backgroundColor;
+    }
+  }
+  show(){
+    fill(this.color);
+    strokeWeight(0);
+    rectMode(CENTER);
+    square(this.x, this.y, this.s);
+    image(nameE, this.x - this.s*.5, this.y - this.s*.5, this.s, this.s);
+  }
+}
+
+class NoteButtonF {
+  constructor(){
+    this.x = 450;
+    this.y = 100;
+    this.s = 50;
+    this.color = backgroundColor;
+  }
+  hover() {
+    if (mouseX > this.x - this.s/2 && mouseX < this.x + this.s/2 && mouseY > this.y - this.s/2 && mouseY < this.y + this.s/2) {
+      this.color = backgroundColor + 50;
+    } else {
+      this.color = backgroundColor;
+    }
+  }
+  show(){
+    fill(this.color);
+    strokeWeight(0);
+    rectMode(CENTER);
+    square(this.x, this.y, this.s);
+    image(nameF, this.x - this.s*.5, this.y - this.s*.5, this.s, this.s);
+  }
+}
+
+class NoteButtonG {
+  constructor(){
+    this.x = 500;
+    this.y = 100;
+    this.s = 50;
+    this.color = backgroundColor;
+  }
+  hover() {
+    if (mouseX > this.x - this.s/2 && mouseX < this.x + this.s/2 && mouseY > this.y - this.s/2 && mouseY < this.y + this.s/2) {
+      this.color = backgroundColor + 50;
+    } else {
+      this.color = backgroundColor;
+    }
+  }
+  show(){
+    fill(this.color);
+    strokeWeight(0);
+    rectMode(CENTER);
+    square(this.x, this.y, this.s);
+    image(nameG, this.x - this.s*.5, this.y - this.s*.5, this.s, this.s);
+  }
+}
+
+class NoteButtonA {
+  constructor(){
+    this.x = 550;
+    this.y = 100;
+    this.s = 50;
+    this.color = backgroundColor;
+  }
+  hover() {
+    if (mouseX > this.x - this.s/2 && mouseX < this.x + this.s/2 && mouseY > this.y - this.s/2 && mouseY < this.y + this.s/2) {
+      this.color = backgroundColor + 50;
+    } else {
+      this.color = backgroundColor;
+    }
+  }
+  show(){
+    fill(this.color);
+    strokeWeight(0);
+    rectMode(CENTER);
+    square(this.x, this.y, this.s);
+    image(nameA, this.x - this.s*.5, this.y - this.s*.5, this.s, this.s);
+  }
+}
+
+class NoteButtonB {
+  constructor(){
+    this.x = 600;
+    this.y = 100;
+    this.s = 50;
+    this.color = backgroundColor;
+  }
+  hover() {
+    if (mouseX > this.x - this.s/2 && mouseX < this.x + this.s/2 && mouseY > this.y - this.s/2 && mouseY < this.y + this.s/2) {
+      this.color = backgroundColor + 50;
+    } else {
+      this.color = backgroundColor;
+    }
+  }
+  show(){
+    fill(this.color);
+    strokeWeight(0);
+    rectMode(CENTER);
+    square(this.x, this.y, this.s);
+    image(nameB, this.x - this.s*.5, this.y - this.s*.5, this.s, this.s);
+  }
+}
+
+class NoteButtonCTwo {
+  constructor(){
+    this.x = 650;
+    this.y = 100;
+    this.s = 50;
+    this.color = backgroundColor;
+  }
+  hover() {
+    if (mouseX > this.x - this.s/2 && mouseX < this.x + this.s/2 && mouseY > this.y - this.s/2 && mouseY < this.y + this.s/2) {
+      this.color = backgroundColor + 50;
+    } else {
+      this.color = backgroundColor;
+    }
+  }
+  show(){
+    fill(this.color);
+    strokeWeight(0);
+    rectMode(CENTER);
+    square(this.x, this.y, this.s);
+    image(nameCTwo, this.x - this.s*.5, this.y - this.s*.5, this.s, this.s);
   }
 }
