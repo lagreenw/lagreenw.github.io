@@ -263,7 +263,10 @@ function touchStarted (){
 function mouseReleased(){
   for (var i = 0; i < balls.length; i++) {
     if(mouseX > (trashButton.x - trashButton.s/2) && mouseX < (trashButton.x + trashButton.s/2) && mouseY > (trashButton.y - trashButton.s/2) && mouseY < (trashButton.y + trashButton.s/2)){
-      if(balls[i].dragging || draggingNewBall){
+      //is there a way to add "|| draggingNewBall" and not have it break?
+      if(balls[i].dragging){
+        print(balls[i].dragging);
+        print(draggingNewBall);
         balls.splice(i, 1);
       }
     } else {
@@ -299,7 +302,9 @@ function mouseReleased(){
   //for note blocks
   for (var i = 0; i < notes.length; i++) {
     if(mouseX > (trashButton.x - trashButton.s/2) && mouseX < (trashButton.x + trashButton.s/2) && mouseY > (trashButton.y - trashButton.s/2) && mouseY < (trashButton.y + trashButton.s/2)){
-      if(notes[i].dragging || draggingNewNote){
+      if(notes[i].dragging){
+        print(notes[i].dragging);
+        print(draggingNewNote);
         notes.splice(i, 1);
       }
     } else {
