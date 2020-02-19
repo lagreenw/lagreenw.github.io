@@ -1,0 +1,16 @@
+{
+  "name": "bumble_intervention_prototype",
+  "version": "1.0.0",
+  "description": "This is the prototype for a reimagined dating app using Bumble.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Invalidation Station",
+  "license": "ISC",
+  "dependencies": {
+    "bumbleapi": "^0.5.0",
+    "request": "^2.88.2"
+  }
+}
